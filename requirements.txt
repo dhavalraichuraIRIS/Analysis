@@ -1,0 +1,15 @@
+#requests==2.23.0
+google_play_scraper==1.2.7
+#app-store-scraper==0.3.5
+pandas==2.2.3
+crewai==0.95.0
+# crewai-tools
+black==24.10.0
+torch==2.5.1
+transformers==4.48.0
+tqdm==4.67.1
+boto3
+tensorflow
+# tensorflow-cpu==2.16.1
+tf-keras
+langchain_groq
