@@ -3,6 +3,7 @@ import dotenv
 import sys
 import json
 from crewai import Crew, LLM
+# from langchain_groq import ChatGroq
 from utils import FileProcessor, process_data_dict,get_rating_distribution
 from agents import *
 from tasks import *
@@ -14,9 +15,9 @@ api_key = os.getenv("GROQ_API_KEY")
 def understand_reviews(file_path: str):
     # Initialize the language model
     llm = LLM(
+        model="openai/openai/gpt-oss-20b",          # Double prefix!
         api_key=api_key,
-        # model="groq/llama-3.3-70b-specdec",
-        model="llama-3.3-70b-versatile",
+        base_url="https://api.groq.com/openai/v1",  
         max_tokens=500
     )
 
@@ -62,8 +63,9 @@ def understand_reviews(file_path: str):
 def generate_markdowns(reviews_with_sentiment, sentiment_distribution, rating_distribution):
     # Initialize the language model
     llm = LLM(
+        model="openai/openai/gpt-oss-20b",          # Double prefix!
         api_key=api_key,
-        model="llama-3.3-70b-versatile",
+        base_url="https://api.groq.com/openai/v1",  
         max_tokens=500
     )
 
