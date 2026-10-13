@@ -4,7 +4,6 @@ import pandas as pd
 
 
 def create_column_mapping_task(agent: Agent, df: pd.DataFrame, llm) -> Task:
-    # Get sample data for analysis
     sample_data = df.head(5).to_dict("records")
     columns = df.columns.tolist()
 
@@ -13,17 +12,23 @@ def create_column_mapping_task(agent: Agent, df: pd.DataFrame, llm) -> Task:
                        should map to the required fields (DateOfReview, Rating, Review, Title).
 
                        Columns available: {columns}
-
                        Sample data: {sample_data}
 
-                       Provide the mapping in this format:
+                       Instructions:
+                       - Map "DateOfReview" to the column representing the date.
+                       - Map "Rating" to the column representing a numeric score or stars.
+                       - Map "Review" to the main text/content of the review.
+                       - Map "Title" to the review title or header.
+                       - If a column clearly does not exist, use the closest match available.
+
+                       Provide the mapping EXACTLY in this JSON format:
                        {{
                            "DateOfReview": "actual_column_name",
                            "Rating": "actual_column_name",
                            "Review": "actual_column_name",
                            "Title": "actual_column_name"
                        }}""",
-        expected_output="JSON object containing the column mapping",
+        expected_output="A valid JSON object containing the 4 column mappings.",
         agent=agent,
         llm=llm
     )

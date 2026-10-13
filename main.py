@@ -18,7 +18,7 @@ def understand_reviews(file_path: str):
         model="openai/openai/gpt-oss-20b",          # Double prefix!
         api_key=api_key,
         base_url="https://api.groq.com/openai/v1",  
-        max_tokens=500
+        max_tokens=2500
     )
 
     # Create a file processor for reading the file
@@ -40,9 +40,14 @@ def understand_reviews(file_path: str):
     print("Detected column mapping:", json.dumps(column_mapping, indent=2))
 
     # Validate the mapping
+# Validate the mapping
     required_fields = {"DateOfReview", "Rating", "Review", "Title"}
-    if not all(field in column_mapping for field in required_fields):
-        raise ValueError("Missing required fields in the column mapping")
+    
+    for field in required_fields:
+        if field not in column_mapping or column_mapping[field] is None:
+            print(f"\n❌ ERROR: LLM failed to map the '{field}' column. Please check if your Excel file has this data.")
+            print(f"LLM returned: {json.dumps(column_mapping, indent=2)}")
+            raise ValueError(f"Missing required field mapping: {field}")
 
     # Process the data with the detected mapping
     processed_data = process_data_dict(df, column_mapping)

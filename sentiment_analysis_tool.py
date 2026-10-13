@@ -12,13 +12,16 @@ class SentimentAnalyzer:
         print(f"Using device: {self.device}")
 
         self.model_name = "cardiffnlp/twitter-roberta-base-sentiment"
-        # Load the tokenizer and model
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
-        self.model = TFAutoModelForSequenceClassification.from_pretrained(
-            self.model_name, from_pt=False  # Load in TensorFlow format
+        # Load the tokenizer and model with token=False to bypass local expired tokens
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            self.model_name, 
+            token=False
         )
-        # self.model.eval()  # Set model to evaluation mode
-
+        self.model = TFAutoModelForSequenceClassification.from_pretrained(
+            self.model_name, 
+            from_pt=False, 
+            token=False 
+        )
         self.labels = {0: "negative", 1: "neutral", 2: "positive"}
 
     # Preprocess the text by combining and tokenizing title and review
