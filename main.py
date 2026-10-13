@@ -22,7 +22,7 @@ def understand_reviews(file_path: str):
     )
 
     # Create a file processor for reading the file
-    file_processor = FileProcessor(file_path)  
+    file_processor = FileProcessor(file_path)   
     # Create a data mapping agent
     mapping_agent = data_format_agent(llm=llm)
 
