@@ -22,12 +22,12 @@ def understand_reviews(file_path: str):
     )
 
     # Create a file processor for reading the file
-    file_processor = FileProcessor(file_path)
+    file_processor = FileProcessor(file_path)  
     # Create a data mapping agent
     mapping_agent = data_format_agent(llm=llm)
 
     # Read the file into a DataFrame
-    df = file_processor.read_file()
+    df = file_processor.read_file().head(1000) # Limit rows for performance
 
     # Create and execute the mapping task
     mapping_task = create_column_mapping_task(mapping_agent, df, llm=llm)
