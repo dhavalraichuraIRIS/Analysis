@@ -18,7 +18,7 @@ api_key = os.getenv("GROQ_API_KEY")
 def run_trading_crew(ticker: str, start_date: str, end_date: str):
     # Initialize the LLM using the double-prefix fallback for stability on Groq
     llm = LLM(
-        model="openai/openai/mixtral-8x7b-32768",          
+        model="openai/qwen/qwen3.8-27b",          
         api_key=api_key,
         base_url="https://api.groq.com/openai/v1",  
         max_tokens=3000
